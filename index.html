@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>潘啟明 Chi-Ming Pan｜作品集</title>
+  <meta name="description" content="潘啟明 Chi-Ming Pan 的個人作品集：技術能力、實習與接案經歷、合約範本下載。" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="nav__brand" data-i18n="name"></a>
+      <nav class="nav__links">
+        <a href="#about" data-i18n="nav.about"></a>
+        <a href="#skills" data-i18n="nav.skills"></a>
+        <a href="#experience" data-i18n="nav.experience"></a>
+        <a href="#projects" data-i18n="nav.projects"></a>
+        <a href="#contracts" data-i18n="nav.contracts"></a>
+        <a href="#contact" data-i18n="nav.contact"></a>
+      </nav>
+      <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language"></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow" data-i18n="hero.eyebrow"></p>
+        <h1 class="hero__title" data-i18n="name"></h1>
+        <p class="hero__role" data-i18n="hero.role"></p>
+        <p class="hero__tagline" data-i18n="hero.tagline"></p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary" data-i18n="hero.cta"></a>
+          <a href="#experience" class="btn" data-i18n="hero.cta2"></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section__title" data-i18n="nav.about"></h2>
+        <p class="about__text" data-i18n="about"></p>
+        <h3 class="sub__title" data-i18n="edu.title"></h3>
+        <ul id="education-list" class="edu"></ul>
+      </div>
+    </section>
+
+    <section id="skills" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title" data-i18n="nav.skills"></h2>
+        <div id="skills-list" class="skills"></div>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <div class="container">
+        <h2 class="section__title" data-i18n="nav.experience"></h2>
+        <ol id="experience-list" class="timeline"></ol>
+      </div>
+    </section>
+
+    <section id="projects" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title" data-i18n="nav.projects"></h2>
+        <div id="projects-list" class="projects"></div>
+      </div>
+    </section>
+
+    <section id="contracts" class="section">
+      <div class="container">
+        <h2 class="section__title" data-i18n="nav.contracts"></h2>
+        <p class="section__desc" data-i18n="contracts.desc"></p>
+        <ul id="contracts-list" class="contracts"></ul>
+      </div>
+    </section>
+
+    <section id="contact" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title" data-i18n="nav.contact"></h2>
+        <p class="section__desc" data-i18n="contact.desc"></p>
+        <ul id="contact-list" class="contact"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© <span id="year"></span> <span data-i18n="name"></span></small>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
