@@ -13,6 +13,20 @@
   const t = (obj) => (obj && typeof obj === "object" ? obj[lang] ?? obj.zh : obj ?? "");
   const ui = (key) => t(data.ui[key]);
 
+  function extLink(text, href) {
+    const a = el("a", null, text);
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    return a;
+  }
+
+  function techTags(list) {
+    const tags = el("ul", "tags tags--small");
+    list.forEach((x) => tags.append(el("li", "tag", x)));
+    return tags;
+  }
+
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -36,6 +50,7 @@
 
   function renderSkills() {
     const root = document.getElementById("skills-list");
+    if (!root) return;
     root.replaceChildren(
       ...data.skills.map((group) => {
         const card = el("div", "skill-card");
@@ -50,6 +65,7 @@
 
   function renderExperience() {
     const root = document.getElementById("experience-list");
+    if (!root) return;
     root.replaceChildren(
       ...data.experience.map((exp) => {
         const li = el("li", "timeline__item");
@@ -60,11 +76,7 @@
 
         const title = el("h3", "timeline__title");
         if (exp.link) {
-          const a = el("a", null, t(exp.title));
-          a.href = exp.link;
-          a.target = "_blank";
-          a.rel = "noopener";
-          title.append(a);
+          title.append(extLink(t(exp.title), exp.link));
         } else {
           title.textContent = t(exp.title);
         }
@@ -89,6 +101,7 @@
 
   function renderEducation() {
     const root = document.getElementById("education-list");
+    if (!root) return;
     root.replaceChildren(
       ...data.education.map((e) => {
         const li = el("li", "edu__item");
@@ -102,16 +115,13 @@
 
   function renderProjects() {
     const root = document.getElementById("projects-list");
+    if (!root) return;
     root.replaceChildren(
       ...data.projects.map((p) => {
         const card = el("article", "project");
         const title = el("h3", "project__title");
         if (p.link) {
-          const a = el("a", null, t(p.title));
-          a.href = p.link;
-          a.target = "_blank";
-          a.rel = "noopener";
-          title.append(a);
+          title.append(extLink(t(p.title), p.link));
         } else {
           title.textContent = t(p.title);
         }
@@ -120,10 +130,11 @@
         if (p.award) card.append(el("p", "project__award", t(p.award)));
         if (p.role) card.append(el("p", "project__role", t(p.role)));
         card.append(el("p", "project__desc", t(p.desc)));
-        if (p.tech && p.tech.length) {
-          const tags = el("ul", "tags tags--small");
-          p.tech.forEach((x) => tags.append(el("li", "tag", x)));
-          card.append(tags);
+        if (p.tech && p.tech.length) card.append(techTags(p.tech));
+        if (p.id) {
+          const more = el("a", "project__more", `${ui("project.more")} →`);
+          more.href = `project.html?id=${encodeURIComponent(p.id)}`;
+          card.append(more);
         }
         return card;
       })
@@ -132,6 +143,7 @@
 
   function renderContracts() {
     const root = document.getElementById("contracts-list");
+    if (!root) return;
     if (!data.contracts.length) {
       root.replaceChildren(el("li", "contracts__empty", ui("contracts.empty")));
       return;
@@ -153,6 +165,7 @@
 
   function renderContact() {
     const root = document.getElementById("contact-list");
+    if (!root) return;
     root.replaceChildren(
       ...data.contact.map((c) => {
         const li = el("li", "contact__item");
@@ -169,6 +182,79 @@
     );
   }
 
+  function renderProjectPage() {
+    const root = document.getElementById("project-page");
+    if (!root) return;
+    const id = new URLSearchParams(location.search).get("id");
+    const p = data.projects.find((x) => x.id === id);
+    document.getElementById("back-link").textContent = `← ${ui("project.back")}`;
+
+    if (!p) {
+      document.title = `${ui("project.notFound")}｜${ui("name")}`;
+      root.replaceChildren(el("p", "section__desc", ui("project.notFound")));
+      return;
+    }
+
+    document.title = `${t(p.title)}｜${ui("name")}`;
+    const nodes = [el("h1", "detail__title", t(p.title)), el("p", "project__meta", t(p.period))];
+    if (p.award) nodes.push(el("p", "project__award", t(p.award)));
+    if (p.role) nodes.push(el("p", "project__role", t(p.role)));
+    nodes.push(el("p", "detail__desc", t(p.desc)));
+    if (p.tech && p.tech.length) nodes.push(techTags(p.tech));
+    if (p.link) {
+      const a = extLink(ui("project.link"), p.link);
+      a.className = "btn btn--small detail__link";
+      nodes.push(a);
+    }
+
+    if (p.details && p.details.length) {
+      nodes.push(el("h2", "sub__title", ui("project.details")));
+      p.details.forEach((d) => nodes.push(el("p", "detail__para", t(d))));
+    }
+
+    nodes.push(el("h2", "sub__title", ui("project.gallery")));
+    if (p.gallery && p.gallery.length) {
+      const grid = el("div", "gallery");
+      p.gallery.forEach((g) => {
+        const fig = el("figure", g.half ? "gallery__item gallery__item--half" : "gallery__item");
+        const img = el("img");
+        img.src = g.src;
+        img.alt = t(g.caption) || t(p.title);
+        img.loading = "lazy";
+        fig.append(img);
+        if (g.caption) fig.append(el("figcaption", null, t(g.caption)));
+        grid.append(fig);
+      });
+      nodes.push(grid);
+    } else {
+      nodes.push(el("p", "contracts__empty", ui("project.galleryEmpty")));
+    }
+
+    root.replaceChildren(...nodes);
+  }
+
+  // Highlight the nav link of the section in view.
+  function initScrollSpy() {
+    const links = [...document.querySelectorAll('.nav__links a[href^="#"]')];
+    if (!links.length || !("IntersectionObserver" in window)) return;
+    const byId = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          links.forEach((a) => a.removeAttribute("aria-current"));
+          const active = byId.get(entry.target.id);
+          if (active) active.setAttribute("aria-current", "true");
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    byId.forEach((_, id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  }
+
   function render() {
     renderStatic();
     renderSkills();
@@ -177,6 +263,7 @@
     renderProjects();
     renderContracts();
     renderContact();
+    renderProjectPage();
   }
 
   document.getElementById("lang-toggle").addEventListener("click", () => {
@@ -187,4 +274,5 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
   render();
+  initScrollSpy();
 })();

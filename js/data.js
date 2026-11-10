@@ -37,7 +37,14 @@ const SITE_DATA = {
     "exp.intern": { zh: "實習", en: "Internship" },
     "exp.freelance": { zh: "接案", en: "Freelance" },
     "exp.fulltime": { zh: "正職", en: "Full-time" },
-    "exp.present": { zh: "至今", en: "Present" }
+    "exp.present": { zh: "至今", en: "Present" },
+    "project.more": { zh: "查看詳情", en: "View details" },
+    "project.back": { zh: "返回作品列表", en: "Back to projects" },
+    "project.details": { zh: "專案細節", en: "Details" },
+    "project.gallery": { zh: "圖片", en: "Gallery" },
+    "project.galleryEmpty": { zh: "圖片整理中。", en: "Images coming soon." },
+    "project.link": { zh: "前往專案", en: "Visit project" },
+    "project.notFound": { zh: "找不到這個專案。", en: "Project not found." }
   },
 
   // Skills grouped by category. `items` are tech names (not translated).
@@ -97,8 +104,13 @@ const SITE_DATA = {
   ],
 
   // Academic / side projects.
+  // `id` creates a detail page at project.html?id=<id>.
+  // `details`: extra paragraphs shown only on the detail page.
+  // `gallery`: images under assets/images/. `half: true` makes the image half width.
+  //   { src: "assets/images/gin-study-1.jpg", caption: { zh: "...", en: "..." }, half: true }
   projects: [
     {
+      id: "gin-study",
       title: { zh: "智慧學習機系統「專注你的薑來 Gin Study」", en: "Gin Study – Smart Learning System" },
       period: { zh: "2024.05 – 2024.11", en: "May 2024 – Nov 2024" },
       role: { zh: "負責 PyQt GUI 與 LLM 解題模組", en: "Role: PyQt GUI and LLM problem-solving module" },
@@ -111,9 +123,12 @@ const SITE_DATA = {
         en: "A self-study terminal combining vision-based focus detection with AI-assisted problem solving."
       },
       tech: ["Python", "PyQt", "OpenCV", "LLM"],
-      link: null
+      link: null,
+      details: [],
+      gallery: []
     },
     {
+      id: "magic-mirror",
       title: { zh: "「魔鏡」RPi 詩歌相機", en: "\"Magic Mirror\" RPi Poetry Camera" },
       period: { zh: "計算機網路概論期末專題", en: "Computer Networks course project" },
       role: null,
@@ -123,7 +138,9 @@ const SITE_DATA = {
         en: "An end-to-end Raspberry Pi pipeline integrating IoT, OpenCV and an LLM: photo capture, backend processing, AI poem generation and on-screen display. Sockets link the device and backend; prompt design supports modern, classical and humorous styles."
       },
       tech: ["Raspberry Pi", "Python", "OpenCV", "Socket", "LLM"],
-      link: null
+      link: null,
+      details: [],
+      gallery: []
     }
   ],
 
