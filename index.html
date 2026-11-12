@@ -24,8 +24,9 @@
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="container">
+    <section id="hero" class="hero">
+      <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="container hero__content">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow"></p>
         <h1 class="hero__title" data-i18n="name"></h1>
         <p class="hero__role" data-i18n="hero.role"></p>
@@ -92,5 +93,6 @@
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/hero.js"></script>
 </body>
 </html>

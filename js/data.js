@@ -3,6 +3,13 @@
  * Every user-facing string has a `zh` and `en` version.
  */
 const SITE_DATA = {
+  // Hero background effect. Switch any time:
+  //   "none"     original plain hero
+  //   "gradient" slowly moving color gradient (CSS only)
+  //   "network"  drifting nodes that link up and follow the mouse (canvas)
+  //   "both"     gradient + network
+  heroEffect: "both",
+
   ui: {
     name: { zh: "潘啟明", en: "Chi-Ming Pan" },
     "nav.about": { zh: "關於我", en: "About" },
