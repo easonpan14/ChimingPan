@@ -141,6 +141,18 @@
     );
   }
 
+  function renderServices() {
+    const root = document.getElementById("services-list");
+    if (!root || !data.services) return;
+    root.replaceChildren(
+      ...data.services.map((s) => {
+        const card = el("div", "service");
+        card.append(el("h3", "service__title", t(s.title)), el("p", "service__desc", t(s.desc)));
+        return card;
+      })
+    );
+  }
+
   function renderContracts() {
     const root = document.getElementById("contracts-list");
     if (!root) return;
@@ -261,6 +273,7 @@
     renderEducation();
     renderExperience();
     renderProjects();
+    renderServices();
     renderContracts();
     renderContact();
     renderProjectPage();

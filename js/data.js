@@ -16,6 +16,7 @@ const SITE_DATA = {
     "nav.skills": { zh: "技術能力", en: "Skills" },
     "nav.experience": { zh: "經歷", en: "Experience" },
     "nav.projects": { zh: "專題作品", en: "Projects" },
+    "nav.services": { zh: "服務項目", en: "Services" },
     "nav.contracts": { zh: "合約範本", en: "Contract Templates" },
     "nav.contact": { zh: "聯絡我", en: "Contact" },
     "hero.eyebrow": { zh: "你好，我是", en: "Hi, I'm" },
@@ -29,6 +30,10 @@ const SITE_DATA = {
     about: {
       zh: "元智大學資訊工程學系碩士生。實習期間在貿易公司開發 20 項業務自動化功能，服務 5 個部門、48 位使用者，累計使用逾 6 萬次。目前以兩人團隊接案，負責全端開發、資料庫遷移與效能優化。擅長直接與業務端溝通需求，並將需求落實成系統功能。",
       en: "M.S. student in Computer Science and Engineering at Yuan Ze University. As an IT intern at a trading company, I built 20 automation features used by 48 employees across 5 departments, with more than 60,000 total uses. I now take freelance projects in a two-person team, covering full-stack development, database migration and performance tuning. I work directly with business users and turn their needs into working features."
+    },
+    "services.desc": {
+      zh: "主要承接網站開發，也能協助業務流程系統化與資料庫優化。",
+      en: "I mainly build websites, and also help turn business workflows into systems and speed up databases."
     },
     "edu.title": { zh: "學歷", en: "Education" },
     "contracts.desc": {
@@ -59,6 +64,31 @@ const SITE_DATA = {
     { category: { zh: "程式語言", en: "Languages" }, items: ["Python", "C++", "SQL", "JavaScript", "HTML/CSS", "R", "Java"] },
     { category: { zh: "框架與函式庫", en: "Frameworks & Libraries" }, items: ["Flask", "PyQt", "OpenCV", "PyTorch"] },
     { category: { zh: "資料庫與工具", en: "Databases & Tools" }, items: ["SQL Server", "SQLite", "Git", "Windows Server", "Socket"] }
+  ],
+
+  // Services offered. Main service first.
+  services: [
+    {
+      title: { zh: "網站開發", en: "Website Development" },
+      desc: {
+        zh: "形象網站、企業網站與客製化網頁功能。",
+        en: "Brand sites, company websites and custom web features."
+      }
+    },
+    {
+      title: { zh: "業務系統開發", en: "Business Systems" },
+      desc: {
+        zh: "把報價、出貨、採購等流程做成內部系統，減少人工作業。",
+        en: "Internal systems for quoting, shipping and purchasing workflows that cut manual work."
+      }
+    },
+    {
+      title: { zh: "資料庫遷移與效能優化", en: "Database Migration & Performance" },
+      desc: {
+        zh: "舊系統對接新資料庫，並加快報表查詢，例如由 27 分鐘降至 6 秒。",
+        en: "Move existing systems to a new database and speed up reports, e.g. from 27 minutes to 6 seconds."
+      }
+    }
   ],
 
   // Work experience, newest first. type: "intern" | "freelance" | "fulltime".
